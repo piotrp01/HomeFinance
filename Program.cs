@@ -4,6 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Liveness/readiness probe consumed by App Service healthCheckPath (/healthz).
+// No DB check yet — AddDbContextCheck drops in with the DB phase.
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -13,6 +17,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapHealthChecks("/healthz");
 
 var summaries = new[]
 {
