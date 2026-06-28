@@ -90,11 +90,11 @@ Document as a checklist in `infra/bootstrap.md` (do **not** auto-run in CI). Var
 
 ## Phase 6 — Verification (end-to-end)
 
-- [ ] GitHub Actions `azure-deploy` run is green (inspect `azure/login` + `webapps-deploy` steps). — **pending merge to `main`** (deploy fires on push to `main`).
+- [x] GitHub Actions `azure-deploy` run is green (inspect `azure/login` + `webapps-deploy` steps). — run on merge of PR #2 to `main` succeeded.
 - [x] `az webapp show -g <RG> -n <app> --query state` → `Running`. — confirmed `Running`.
-- [ ] `curl -i https://<app>.azurewebsites.net/healthz` → `200 Healthy`. — **pending first code deploy.**
-- [ ] `curl -s https://<app>.azurewebsites.net/weatherforecast` → JSON array of 5 forecasts. — **pending first code deploy.**
-- [ ] `az webapp log tail -g <RG> -n <app>` → Kestrel "Now listening on…", no startup exceptions. — **pending first code deploy.**
+- [x] `curl -i https://<app>.azurewebsites.net/healthz` → `200 Healthy`. — `HTTP 200`, body `Healthy`.
+- [x] `curl -s https://<app>.azurewebsites.net/weatherforecast` → JSON array of 5 forecasts. — `HTTP 200`, 5-element JSON array.
+- [x] `az webapp log tail -g <RG> -n <app>` → Kestrel "Now listening on…", no startup exceptions. — warmup probe succeeded (7.2s), "Site started", no exceptions.
 
 ## Explicitly deferred (with upgrade triggers)
 
